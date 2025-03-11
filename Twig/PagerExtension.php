@@ -13,11 +13,13 @@ namespace ONGR\FilterManagerBundle\Twig;
 
 use ONGR\FilterManagerBundle\Filter\ViewData\PagerAwareViewData;
 use Symfony\Component\Routing\RouterInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * PagerExtension extends Twig with pagination capabilities.
  */
-class PagerExtension extends \Twig_Extension
+class PagerExtension extends AbstractExtension
 {
     /**
      * Twig extension name.
@@ -43,12 +45,12 @@ class PagerExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new TwigFunction(
                 'ongr_paginate',
                 [$this, 'paginate'],
                 ['is_safe' => ['html'], 'needs_environment' => true]
             ),
-            new \Twig_SimpleFunction('ongr_paginate_path', [$this, 'path'], ['is_safe' => []]),
+            new TwigFunction('ongr_paginate_path', [$this, 'path'], ['is_safe' => []]),
         ];
     }
 
