@@ -42,7 +42,7 @@ class FilterContainer extends ParameterBag
     /**
      * {@inheritdoc}
      */
-    public function add(array $parameters = [])
+    public function add(array $parameters = []): void
     {
         foreach ($parameters as $key => $value) {
             $this->set($key, $value);
@@ -52,7 +52,7 @@ class FilterContainer extends ParameterBag
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         if ($value instanceof FilterInterface) {
             parent::set($key, $value);
