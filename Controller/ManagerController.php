@@ -22,6 +22,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ManagerController extends AbstractController
 {
+    private array $managers;
+
+    public function __construct(iterable $managers)
+    {
+        $this->managers = iterator_to_array($managers);
+    }
+
     /**
      * Renders view with filter manager response.
      *
@@ -33,10 +40,10 @@ class ManagerController extends AbstractController
      */
     public function managerAction(Request $request, $managerName, $template)
     {
-        return $this->render(
+        return new Response($this->container->get('twig')->render(
             $template,
             $this->getFilterManagerResponse($request, $managerName)
-        );
+        ));
     }
 
     /**
@@ -50,7 +57,7 @@ class ManagerController extends AbstractController
     protected function getFilterManagerResponse(Request $request, $managerName)
     {
         return [
-            'filter_manager' => $this->get(ONGRFilterManagerExtension::getFilterManagerId($managerName))
+            'filter_manager' => $this->managers[ONGRFilterManagerExtension::getFilterManagerId($managerName)]
                 ->handleRequest($request)
         ];
     }
@@ -65,7 +72,7 @@ class ManagerController extends AbstractController
      */
     public function jsonAction(Request $request, $managerName)
     {
-        $data = $this->get(ONGRFilterManagerExtension::getFilterManagerId($managerName))
+        $data = $this->managers[ONGRFilterManagerExtension::getFilterManagerId($managerName)]
             ->handleRequest($request)
             ->getSerializableData();
 

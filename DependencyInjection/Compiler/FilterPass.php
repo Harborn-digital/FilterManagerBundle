@@ -74,6 +74,7 @@ class FilterPass implements CompilerPassInterface
                 }
             }
 
+            $managerDefinitionId = ONGRFilterManagerExtension::getFilterManagerId($managerName);
             $managerDefinition = new Definition(
                 'ONGR\FilterManagerBundle\Search\FilterManager',
                 [
@@ -84,8 +85,9 @@ class FilterPass implements CompilerPassInterface
                 ]
             );
             $managerDefinition->setPublic(true);
+            $managerDefinition->addTag('ongr_filter_manager.manager', ['key' => $managerDefinitionId]);
 
-            $container->setDefinition(ONGRFilterManagerExtension::getFilterManagerId($managerName), $managerDefinition);
+            $container->setDefinition($managerDefinitionId, $managerDefinition);
         }
     }
 

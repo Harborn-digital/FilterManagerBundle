@@ -66,7 +66,7 @@ class PagerExtension extends AbstractExtension
      * @return string
      */
     public function paginate(
-        \Twig_Environment $env,
+        \Twig\Environment $env,
         $pager,
         $route,
         array $parameters = [],

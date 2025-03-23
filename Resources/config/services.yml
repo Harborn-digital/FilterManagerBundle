@@ -65,3 +65,12 @@ services:
         class: ONGR\FilterManagerBundle\Filter\Widget\Sort\Sort
         tags:
             - { name: ongr_filter_manager.filter, type: sort }
+
+    ONGR\FilterManagerBundle\Controller\ManagerController:
+        public: true
+        class: ONGR\FilterManagerBundle\Controller\ManagerController
+        arguments:
+            - !tagged_iterator { tag: ongr_filter_manager.manager, index_by: 'key' }
+        tags: [ 'controller.service_arguments' ]
+        calls:
+            - [ setContainer, [ '@service_container' ] ]
