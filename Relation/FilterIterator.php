@@ -36,7 +36,7 @@ class FilterIterator extends \FilterIterator
     /**
      * {@inheritdoc}
      */
-    public function accept()
+    public function accept(): bool
     {
         return $this->relation->isRelated($this->key());
     }
